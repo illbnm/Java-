@@ -3,6 +3,7 @@ package com.company;
 import com.sun.javafx.image.BytePixelSetter;
 import org.omg.CORBA.FREE_MEM;
 
+import java.util.Arrays;
 import java.util.Scanner;                   //switch s
 
 // ize
@@ -78,7 +79,7 @@ public class login {
 
     public static void main(String[] argc) {
         int size = 0;
-        int NUM = 10;
+        int NUM = 3;
         int arr[] = new int[NUM];
         Scanner scanner = new Scanner(System.in);
         login A = new login();
@@ -129,12 +130,14 @@ public class login {
                 }
             }
             if (size >= NUM) {
-                NUM = arr.length*2;
+               /* NUM = arr.length*2;
                 int brr[] = new int[NUM];
                 for (int i = 0; i < NUM; i++) {
                     brr[i] =arr[i];
+*/int  [] brr = {1,1,1};
+               arr = Arrays.copyOf(arr,arr.length*2);
+               NUM = arr.length*2;
 
-                }
 
             }
         }
