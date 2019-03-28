@@ -5,17 +5,17 @@ import java.*;
 import java.util.Scanner;
 
 public class work {
-    public int getSum(int n, int a) {
+    public int  getSum(int n, int a) {
         int SUM = 0;
         int A = 0;
         for (int i = 1; i <= n; i++) {
-            A = A * 10 + a;
-            SUM += A;
+           A = A * 10 + a;
+           SUM += A;
         }
         return SUM;
     }
 
-    public int getDaffodil(int[] arr) {
+    public int  getDaffodil(int[] arr) {
         int size = 0;                        //获取水仙花
         for (int i = 100; i <= 999; i++) {
             int B = i / 100;
@@ -44,6 +44,7 @@ public class work {
                     /**
                      * 1.
                      * n是由键盘输入，例如：n=5;  S=a+aa+aaa+aaaa+aaaaa;
+                     *
                      */
 
                     System.out.println("S = a + aa + aaa +......");
