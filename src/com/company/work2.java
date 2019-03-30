@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class work2 {
@@ -23,7 +24,10 @@ public class work2 {
     }
 
     public static int recursiveSearch(int[] arr, int S, int le, int ri) {
-        if (le < ri) {
+        if(arr == null){
+            return  -1;
+        }
+        if (le <=ri) {
             int minddle = (le + ri) / 2;
             if (arr[minddle] == S) {
                 return minddle;
@@ -55,5 +59,6 @@ public class work2 {
         } else {
             System.out.println(num);
         }
+        Arrays.binarySearch(arr,2);
     }
 }
