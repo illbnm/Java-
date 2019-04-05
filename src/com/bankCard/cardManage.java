@@ -20,7 +20,7 @@ public class cardManage {
             this.name = name;
         }
 
-        public boolean confirm(int[] cardNum, int passwd) {
+        public boolean  confirm(int[] cardNum, int passwd) {
             if (this.cardNum.equals(cardNum) && this.passwd == passwd) {
                 return true;
             }
