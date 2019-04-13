@@ -12,11 +12,13 @@ public class BankCard {
     public void saveMoney(int money){
         this.money+=money;
     }
-    public void withdraw(int money){
+    public boolean withdraw(int money){
         if(this.money >= money) {
             this.money -= money;
+            return  true;
         }else{
             System.out.println("取款失败");
+            return false;
         }
     }
 
