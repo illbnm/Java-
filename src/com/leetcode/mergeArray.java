@@ -56,5 +56,6 @@ public class mergeArray {
         int[] nums2 = {2, 5, 6};
         mergeArray A = new mergeArray();
         A.merge(nums1, 3, nums2, 3);
+        Integer.parseInt("  ");
     }
 }
