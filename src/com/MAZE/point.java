@@ -25,6 +25,15 @@ public class point {
     private int left = 0;           //默认上下左右都为通路  用0标记
     private int right = 0;
 
+    public void setPath(int path) {
+        this.path = path;
+    }
+
+    public int getPath() {
+        return path;
+    }
+
+    int path = -1;
     public point(int x, int y, int M[][]) { //此处默认填充迷宫周围为1
         this.x = x;
         this.y = y;
