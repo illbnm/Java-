@@ -80,15 +80,15 @@ public class student implements Comparable {
 
         student[] s = new student[5];
         s[0] = new student("zs", 123, 99);
-        s[1] = new student("zs", 234, 55);
-        s[2] = new student("zs", 456, 89);
-        s[3] = new student("zs", 111, 67);
-        s[4] = new student("zs", 145, 45);
+        s[1] = new student("zs", 234, 99);
+        s[2] = new student("zs", 456, 99);
+        s[3] = new student("zs", 111, 99);
+        s[4] = new student("zs", 145, 99);
         int i = 1;
         for (i = 0; i < s.length - 1; i++) {
-            for (int j = i; j < s.length - 1; j++) {
-                if (s[i].compareTo(s[j]) == 0)
-                    s[i].swap(s[j]);
+            for (int j = 0; j < s.length - 1-i; j++) {
+                if (s[j].compareTo(s[j+1]) == 0)
+                    s[j].swap(s[j+1]);
             }
         }
         for (student S : s) {

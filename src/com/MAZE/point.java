@@ -21,6 +21,23 @@ public class point {
     private int x;
     private int y;
     private int up = 0;
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
     private int down = 0;
     private int left = 0;           //默认上下左右都为通路  用0标记
     private int right = 0;

@@ -44,6 +44,8 @@ public class Start {
 //        }
         Start start = new Start();
         start.mazeInit(X,Y,M);
+        maze MA = new maze();
+        start.Maze.dispose(1,1,6,6);
 
     }
 }

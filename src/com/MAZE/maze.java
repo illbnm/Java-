@@ -17,7 +17,7 @@ public class maze {
         for (int i = 1; i < x; i++) {
             for (int j = 1; j < y; j++) {
                 P[i][j] = new point(i, j, M);
-                System.out.println(P[i][j]);
+                //System.out.println(P[i][j]);
             }
         }
 
@@ -27,28 +27,75 @@ public class maze {
         p1 = new point(1, 1, M);
     }
 
-    public point execute(point P[][], int x, int y) {
-        P[x][y].setPath(pathSign++);
-        if (P[x][y].getUp() == 0) {
-
+    public point execute(int x, int y, int flag) {
+        if (flag >= 4) {
+            return P[x][y];
+        }    //flag = 0 上
+        if (P[x][y].getUp() == 0 && flag == 0) {
             return P[x - 1][y];
-        } else if (P[x][y].getDown() == 0)
+        } else if (P[x][y].getDown() == 0 && flag == 1)
             return P[x + 1][y];
-        else if (P[x][y].getLeft() == 0)
+        else if (P[x][y].getLeft() == 0 && flag == 2)
             return P[x][y - 1];
-        else if (P[x][y].getRight() == 0)
-            return P[x][y+1];
+        else if (P[x][y].getRight() == 0 && flag == 3)
+            return P[x][y + 1];
         return P[x][y];
     } // 按照上下左右的顺序向前走,返回值为下一个可走的点
 
-    public void dispose() {
+    public int dispose(int x, int y, int endx, int endy) {
         MY.empty();
-        int i = 1, j = 1;
-        if(this.execute(P,i,j).equals(p1)){
+        MY.push(P[x][y]);
+
+        point temp;
+        while (MY.isEmpty() != true) {
+            //  if(int i == enx && int j == endy){
+                    for(int i =1 ;i<=endx;i++){
+                        for(int j = 1;i<=endy;i++)
+                        {
+                            if(P[i][j].path != -1){
+                                System.out.println(P[i][j].getPath()+"  " );
+                            }
+                            else
+                            {
+                                System.out.println("-1");
+                            }
+
+                        }                    }
+            //  }
+
+
+            //return 1;//找到最后一条路径返回1
+
+//            if(execute(P[x][y].getX(),P[x][y].getY()).equals(P[x][y])) {
+//                execute(P[x][y].getX(),P[x][y].getY());
+//                MY.pop();
+//                MY.peek().
+//            }else
+//            {       temp = execute(P[x][y].getX(),P[x][y].getY());
+//                MY.push(temp);
+//                temp.path =pathSign++;
+//            }
+            temp = execute(P[x][y].getX(), P[x][y].getY(), 0);
+            while (temp.equals(P[x][y]) == true) {
+                int flag = 1;
+                temp = execute(P[x][y].getX(), P[x][y].getY(), flag++);
+
+            }
+            if (temp.equals(P[x][y])) {
+
+                MY.pop();
+                x = MY.peek().getX();
+                y = MY.peek().getY();
+
+            } else {
+                MY.add(temp);
+                temp.setPath(pathSign++);
+                x = temp.getX();
+                y = temp.getY();
+            }
 
         }
-
-
+        return 0;
     }
 
 }
