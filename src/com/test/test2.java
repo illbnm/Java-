@@ -1,17 +1,19 @@
 package com.test;
 
 public class test2 {
-    class People{
-        int a = 0 ;
-    }
-    class Man extends  People {
-        int b = 0 ;
-        public  void geta(){
-            a = 0 ;
-        }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
+
     public static void main(String[] args) {
+        People man = new People();
+        Class C = man.getClass();
+        man.getClass();
+     System.out.println(C);
+        String classname = "java.untl.Date";
+
 
     }
 }
