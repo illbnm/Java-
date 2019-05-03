@@ -1,4 +1,4 @@
-package classClone;
+package src.classClone;
 
 class Door implements Cloneable {
     String name;
