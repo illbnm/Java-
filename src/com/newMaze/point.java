@@ -1,4 +1,4 @@
-package com.newMaze;
+package src.com.newMaze;
 
 public class point {
     int i ,j;

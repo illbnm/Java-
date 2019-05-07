@@ -1,4 +1,4 @@
-package com.newMaze;
+package src.com.newMaze;
 
 import java.util.Stack;
 

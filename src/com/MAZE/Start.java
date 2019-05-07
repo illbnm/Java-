@@ -1,4 +1,4 @@
-package com.MAZE;
+package src.com.MAZE;
 
 import java.util.Scanner;
 
