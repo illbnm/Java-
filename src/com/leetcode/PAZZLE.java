@@ -96,24 +96,25 @@ public class PAZZLE {
             if (top.value == 0)
                 return true;
             if (JudgeLeft(top, top.Node_i)) {
-                if (isPush(top) == false) {
-                    N.push(nodes[top.Node_i - top.value]);
 
-                    //将下一个能调的点入栈
-                    top.signLeft = false;
-                    Stack_num[top.Node_i] = true;//并且封死当前节点的右半边
-                } else
-                    return false;
+                N.push(nodes[top.Node_i - top.value]);
+
+                //将下一个能调的点入栈
+                top.signLeft = false;
+                Stack_num[top.Node_i] = true;//并且封死当前节点的右半边
+
 
             } else if (JudgeRight(top, top.Node_i)) {
-                if (isPush(top) == false) {             //此处去重判断当前节点是否被入栈,以下标来判断
-                    N.push(nodes[top.Node_i + top.value]);
-                    top.signright = false;
-                    Stack_num[top.Node_i] = true;
-                } else
-                    return false;
-            } else
+                //此处去重判断当前节点是否被入栈,以下标来判断
+                N.push(nodes[top.Node_i + top.value]);
+                top.signright = false;
+                Stack_num[top.Node_i] = true;
+
+            } else {
+
                 N.pop();
+            }
+
         }
         return false;
     }
@@ -122,7 +123,7 @@ public class PAZZLE {
         final int num = 10;
         Random random = new Random();
         Node[] nodes = new Node[num];
-        int[] value = {4, 8, 5, 2, 3, 5, 1, 6, 4, 0};
+        int[] value = {4, 8, 5, 2, 3 , 5, 1, 6, 4, 0};
         for (int i = 0; i < num; i++) {
             nodes[i] = new Node(value[i], i);
 
