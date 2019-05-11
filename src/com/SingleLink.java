@@ -35,7 +35,8 @@ public class SingleLink {
 
     public void deleteTail() {
         Entry P = head;
-        while (P.getNext().getNext() != null) {
+
+        while (head.getNext() != null&&P.getNext().getNext() != null ) {   //此处前后顺序不
             P = P.getNext();
         }
         P.setNext(null);

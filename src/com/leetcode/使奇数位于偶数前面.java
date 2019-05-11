@@ -29,6 +29,27 @@ public class 使奇数位于偶数前面 {
 
     public static void main(String[] args) {
         int[] array = {1, 3, 5, 7, 2, 4, 6};
+        Number a = new Number() {
+            @Override
+            public int intValue() {
+                return 0;
+            }
+
+            @Override
+            public long longValue() {
+                return 0;
+            }
+
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }
         reOrderArray(array);
         System.out.println(Arrays.toString(array));
     }
