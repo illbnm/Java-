@@ -1,4 +1,4 @@
-package com.bankCard;
+package src.com.bankCard;
 
 import java.util.Scanner;
 

@@ -35,5 +35,7 @@ package src.com.leetcode;
  *
  */
 public class 鸡蛋掉落未做完 {
-
+    public static void main(String[] args) {
+        System.out.println(7);
+    }
 }

@@ -1,4 +1,4 @@
-package Bank;
+package src.Bank;
 import java.util.*;
 public class TestDemo {
     public static void main(String[] args) {

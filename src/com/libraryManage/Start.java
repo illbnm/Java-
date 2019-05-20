@@ -1,7 +1,6 @@
 package src.com.libraryManage;
 
 
-
 import java.util.Scanner;
 
 enum chose {
@@ -9,8 +8,13 @@ enum chose {
 }
 
 public class Start {
-    static public void login(String flag) {
-        if (flag == "学生") {
+
+    static public void login(int flag) {
+        if (flag != 1 && flag != 2) {
+            System.out.println("请检查你的输入! ");
+        }
+        if (flag == 1) {
+
 
         }
     }
@@ -22,15 +26,16 @@ public class Start {
             System.out.println("1.学生");
             System.out.println("2.管理员");
             int Chose = scanner.nextInt();
-            String flag = "";
+            int flag = 0;
             switch (Chose) {
                 case 1: {
-                    flag = "学生";
+                    flag = 1;
+
                 }
                 break;
 
                 case 2: {
-                    flag = "管理员";
+                    flag = 2;
                 }
                 break;
                 default:

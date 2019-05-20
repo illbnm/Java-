@@ -1,4 +1,4 @@
-package Bank;
+package src.Bank;
 
 public class BankCard {
     private int id;
