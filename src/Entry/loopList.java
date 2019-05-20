@@ -37,10 +37,10 @@ public class loopList<T> {
         Entry<T> cur = head;
         if (num == 1)
             return head;
-        for (int i = 1; i <= num-1; i++) {
+        for (int i = 1; i <= num - 1; i++) {
             cur = cur.getNext();
         }
-            return cur ;
+        return cur;
     }
 
     /**
@@ -51,11 +51,41 @@ public class loopList<T> {
     public boolean add(T value, int num) {
         if (isExist(num) == false)
             return false;
-        Entry<T> P =getEntryBYnum(num);
-            P.getPre().setNext(P.getNext());
-            P.getNext().setPre(P.getPre());
-            this.size -=1 ;
-            return true;
+        Entry<T> next = getEntryBYnum(num);
+        Entry<T> P = new Entry<>(value);
+        P.setNext(next);
+        P.setPre(next.getPre());
+        next.getPre().setNext(P);
+        next.setPre(P);
+
+
+        this.size -= 1;
+        return true;
     }
 
+    /**
+     * 删除值为value的节点
+     *
+     * @param value
+     */
+    public void remove(T value) {
+        Entry<T> P = head;
+        for (; P == (tail.getNext()); P = P.getNext()) {
+            if (P.getValue() == value) {
+                P.getPre().setNext(P.getNext());
+                P.getNext().setPre(P.getPre());
+                this.size -= 1;
+            }
+        }
+    }
+
+    public void show() {
+        Entry<T> P = head;
+        System.out.println("[");
+        for (; P == (tail.getNext()); P = P.getNext()) {
+            System.out.println(P.getValue() + ",");
+        }
+        System.out.println("]");
+
+    }
 }
