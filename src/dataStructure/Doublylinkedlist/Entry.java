@@ -1,4 +1,4 @@
-package src.Doublylinkedlist;
+package src.dataStructure.Doublylinkedlist;
 
 public class Entry<T> {
     private T value;

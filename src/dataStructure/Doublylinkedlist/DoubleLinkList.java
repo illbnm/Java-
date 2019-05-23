@@ -1,6 +1,4 @@
-package src.Doublylinkedlist;
-
-import src.com.test.MyArrayList;
+package src.dataStructure.Doublylinkedlist;
 
 /**
  * TODO : 双向链表的实现

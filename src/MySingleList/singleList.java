@@ -39,13 +39,13 @@ public class singleList<T> {
      */
 
     public void show() {
-       // Entry<T> P = head;
+        // Entry<T> P = head;
 //
 //        while (P.getNext() != null) {
 //            System.out.println(P.getValue() + "  ");
 //            P = P.getNext();
 //        }
-       // System.out.println(P.getValue() + "   ");
+        // System.out.println(P.getValue() + "   ");
         for (Entry<T> P = head; P != null; P = P.getNext()) {
             if (P == head) {
             } else
@@ -112,6 +112,24 @@ public class singleList<T> {
 
         }
 
+
+    }
+
+    /**
+     * 单链表的逆置
+     */
+    public void reverse() {
+        if (head.getNext() == null)
+            return;
+        Entry<T> P = head.getNext().getNext();
+        head.getNext().setNext(null);
+        Entry<T> S = null;
+        while (P != null) {
+            S = P.getNext();
+            P.setNext(head.getNext());
+            head.setNext(P);
+            P = S;
+        }
 
     }
 
