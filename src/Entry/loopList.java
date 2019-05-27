@@ -79,11 +79,49 @@ public class loopList<T> {
         }
     }
 
+    public void Deletehead(T value) {
+        if (head == null) {
+            return;
+        } else if (head.getNext() == null) {
+            head = null;
+            tail = null;
+        }
+        tail.setNext(head.getNext());
+        head.setValue(null);
+        head = head.getNext();
+    }
+
+    public Entry getTailPre() {
+        Entry pre;
+        for (pre = head; ; pre = pre.getNext()) {
+            if (pre.getNext() == null) ;
+            return pre;
+        }
+
+    }
+
+    public void Deletetail(T value) {
+        if (head == null) {
+            return;
+        } else if (head.getNext() == head) {
+            head = null;
+            tail = null;
+        } else {
+            Entry pre = getTailPre();
+            pre.setNext(head);
+            tail.setValue(null);
+            tail = pre;
+        }
+    }
+
     public void show() {
         Entry<T> P = head;
         System.out.println("[");
         for (; P == (tail.getNext()); P = P.getNext()) {
             System.out.println(P.getValue() + ",");
+            if (P == tail) {
+                break;
+            }
         }
         System.out.println("]");
 

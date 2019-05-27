@@ -1,5 +1,7 @@
 package src.dataStructure.Doublylinkedlist;
 
+import javax.xml.bind.Element;
+
 /**
  * TODO : 双向链表的实现
  *
@@ -23,6 +25,14 @@ public class DoubleLinkList<T> {
         if (P.getNext() != null) {
             P.getNext().setPre(P);
         }
+    }
+
+    public void addHeadNohead(T value) {
+        Entry<T> p = new Entry<>(value, null, head);
+        head.setPre(p);
+        head = p ;
+
+
     }
 
     /**
@@ -68,7 +78,7 @@ public class DoubleLinkList<T> {
     }
 
     public static void main(String[] args) {
-        DoubleLinkList <Integer> MYlist = new DoubleLinkList<>();
+        DoubleLinkList<Integer> MYlist = new DoubleLinkList<>();
         MYlist.addHead(1);
         MYlist.addHead(2);
         MYlist.addTail(3);

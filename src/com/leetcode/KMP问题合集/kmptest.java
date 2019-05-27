@@ -2,6 +2,11 @@ package src.com.leetcode.KMP问题合集;
 
 import java.util.Arrays;
 
+/**
+ *
+ * str1 长串
+ * str2 小串,要匹配的串
+ */
 public class kmptest {
     public static int getIndexOf(String s, String m) {
         if (s == null || m == null || m.length() < 1 || s.length() < m.length()) {
@@ -32,12 +37,12 @@ public class kmptest {
         int[] next = new int[str2.length];
         next[0] = -1;
         next[1] = 0;
-        int cn = 0; //当前调的位置
+        int cn = 0; //当前跳的位置
         while (i < next.length) {
             if (str2[i - 1] == str2[cn]) {
                 next[i++] = ++cn;
             } else if (cn > 0) {
-                cn = next[n];
+                cn = next[cn];
             } else {
                 next[i++] = 0;
             }
