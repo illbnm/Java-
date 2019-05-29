@@ -1,5 +1,8 @@
 package src.com.leetcode.链表问题合集;
 
+/**
+ * length = ListNode.length - k  length为正数节点数
+ */
 public class 找倒数K节点 {
     public static  ListNode FindKthToTail(ListNode head, int k) {
         ListNode fast = head;

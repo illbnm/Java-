@@ -5,7 +5,7 @@ public class 合并两个链表 {
         ListNode head = null;
         if (list1 == null && list2 == null)
             return head;
-        if (list1.val <= list1.val) {
+        if (list1.val <= list2.val) {
             head = list1;
             list1 = list1.next;
         } else {
