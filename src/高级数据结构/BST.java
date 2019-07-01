@@ -27,6 +27,7 @@ import java.util.Stack;
 
 /**
  * BST树的节点类型
+ *
  * @param <T>
  */
 class BSTNode<T extends Comparable<T>> {
@@ -51,7 +52,7 @@ class BSTNode<T extends Comparable<T>> {
         this.data = data;
     }
 
-    public BSTNode getLeft() {
+    public BSTNode<T> getLeft() {
         return left;
     }
 
@@ -59,7 +60,7 @@ class BSTNode<T extends Comparable<T>> {
         this.left = left;
     }
 
-    public BSTNode getRight() {
+    public BSTNode<T> getRight() {
         return right;
     }
 
@@ -70,6 +71,7 @@ class BSTNode<T extends Comparable<T>> {
 
 /**
  * BST树的实现
+ *
  * @param <T>
  */
 class BSTree<T extends Comparable<T>> {
@@ -237,7 +239,27 @@ class BSTree<T extends Comparable<T>> {
     /**
      * 递归实现BST数的中序遍历API接口
      */
-    public void inOrder() {
+    public void inOrder(BSTNode<T> root) {
+        if (root != null) {
+            inOrder(root.getLeft());
+            System.out.print(root.getData());
+            inOrder(root.getRight());
+
+
+        }
+
+    }
+
+    /**
+     * 递归事项BST树的后序遍历API接口
+     */
+    public void postOrder(BSTNode<T> root) {
+        if (root != null) {
+            postOrder(root.getLeft());
+            postOrder(root.getRight());
+            System.out.println(root.getData() + " ");
+        }
+
 
     }
 
@@ -268,21 +290,237 @@ class BSTree<T extends Comparable<T>> {
 
     }
 
-}
-    public class BST {
-        public static void main(String[] args) {
-            BSTree<Integer> bst = new BSTree<>();
-            int[] ar = {53, 36, 86, 12, 39, 68, 92, 23, 46, 79, 98};
-            for (int val : ar) {
-                bst.non_insert(val);
-            }
-            bst.non_insert(37);
-            //bst.non_remove(86);
-            bst.non_preOrder();
-            System.out.println();
-            bst.preOrder();
+    /**
+     * 递归实现求节点数目接口
+     */
+    public int Coun_API() {
+        return Count(root);
+    }
 
-            System.out.println();
+    /**
+     * 递归实现节点的数目
+     */
+    public int Count(BSTNode<T> root) {
+        if (root == null) {
+            return 0;
+        } else {
+            return Count(root.getLeft()) + Count(root.getRight()) + 1;
+        }
 
+    }
+
+    /**
+     * 求层数的API
+     */
+    public void level_APi() {
+
+        level(root);
+    }
+
+    private int level(BSTNode<T> root) {
+
+
+        if (root == null) {
+            return 0;
+        } else {
+            int left = level(root.getLeft());
+            int right = level(root.getRight());
+            return left > right ? left + 1 : right + 1;
         }
     }
+
+
+    /**
+     * 递归实现层次遍历
+     */
+
+    public void levelOrder_API() {
+        int level = level(root);
+        for (int i = 0; i < level; i++) {
+            levelOrder_(root, level(root));
+        }
+    }
+
+    private void levelOrder_(BSTNode<T> root, int level) {
+        if (root == null) {
+            return;
+        }
+        if (level == 0) {
+            System.out.println(root.getData() + "   ");
+        }
+
+        levelOrder_(root.getLeft(), level - 1);
+        levelOrder_(root.getRight(), level - 1);
+
+
+    }
+
+    /**
+     * 求二叉树的镜像,也就是将二叉树的左右孩子树进行交换
+     */
+    public void mirror() {
+        mirrorOrder(root);
+
+
+    }
+
+    private void mirrorOrder(BSTNode<T> root) {
+        if (root != null) {
+            Swap(root.getLeft(), root.getRight());
+            mirrorOrder(root.getLeft());
+            mirrorOrder(root.getRight());
+        } else {
+            return;
+        }
+    }
+
+    public void Swap(BSTNode a, BSTNode b) {
+        BSTNode temp;
+        temp = a;
+        a = b;
+        b = temp;
+    }
+
+    /**
+     * 把BST中满足[begin,end]区间的元素打印出来
+     */
+    public void findAreaData(T begin, T end) {
+
+        findArea(root, begin, end);
+
+    }
+
+    private void findArea(BSTNode<T> root, T begin, T end) {
+        if (root == null) {
+            return;
+        }
+        if (root.getData().compareTo(begin) > 0) {
+            findArea(root.getLeft(), begin, end);
+        }
+        if (root.getData().compareTo(end) < 0) {
+            findArea(root.getRight(), begin, end);
+        }
+
+
+    }
+
+    /**
+     * 判断二叉树是否为BST树,是BST返回True  不是返回false,判断它的中序遍历是否为升序排列
+     */
+    public void isBST() {
+
+
+        isBSTree(root, null);
+
+
+    }
+
+    /**
+     * 递归实现判断它的中序遍历是否为升序排列
+     *
+     * @param root
+     * @param i
+     * @return
+     */
+    private boolean isBSTree(BSTNode<T> root, T i) {
+        if (root == null) {
+            return true;
+        }
+        if (!isBSTree(root.getLeft(), root.getData())) {
+            return false;
+        }
+        if (i != null && root.getData().compareTo(i) < 0) {
+            return false;
+        }
+        i = root.getData();
+        return isBSTree(root.getRight(), root.getData());
+    }
+
+    /**
+     * 求data1 和data2 最近公共祖先节点  // 比较其大小
+     */
+
+
+    public T getLCA(T data1, T data2) {
+        return getLCA_(root, data1, data2);
+    }
+
+    private T getLCA_(BSTNode<T> root, T data1, T data2) {
+        if (root == null) {
+            return null;
+        }
+
+
+        if (root.getData().compareTo(data1) > 0 && root.getData().compareTo(data2) > 0) {
+            getLCA_(root.getLeft(), data1, data2);
+        } else if (root.getData().compareTo(data1) < 0 && root.getData().compareTo(data2) < 0) {
+
+            getLCA_(root.getRight(), data1, data2);
+        }
+        return root.getData();
+
+    }
+
+    /**
+     * 返回中序遍历倒数第k个节点的值
+     */
+//    public T getOrderK(int k) {
+//        int num = Count(root);
+//        return getOrderK(this.root, num - k, 0);
+//    }
+//
+//    private T getOrderK(BSTNode<T> root, int k, int i) {
+//        if (root == null) {
+//            return null;
+//        }
+//
+//
+//        T value = getOrderK(root.getLeft(), k, i );
+//        if(value != null ){
+//            return  value ;
+//        }
+//        if(++i ==  k) {
+//            return root.getData();
+//        }
+//
+//    }
+
+    /**
+     * 判断tree 是不是当前 BST树的子树
+     */
+    public boolean isChildTree(BSTNode<T> tree) {
+        return isChildTree(root, tree);
+
+
+    }
+
+    private boolean isChildTree(BSTNode<T> root, BSTNode<T> tree) {
+        if (root == null) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+}
+
+
+public class BST {
+    public static void main(String[] args) {
+        BSTree<Integer> bst = new BSTree<>();
+        int[] ar = {53, 36, 86, 12, 39, 68, 92, 23, 46, 79, 98};
+        for (int val : ar) {
+            bst.non_insert(val);
+        }
+        bst.non_insert(37);
+        //bst.non_remove(86);
+        bst.non_preOrder();
+        System.out.println();
+        bst.preOrder();
+
+        System.out.println(bst.Coun_API());
+
+
+    }
+}
