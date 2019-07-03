@@ -20,7 +20,7 @@ public class outPutStream {
         byte[] btr = str.getBytes();
 
             out.write(btr);
-        
+
 
     }
 
