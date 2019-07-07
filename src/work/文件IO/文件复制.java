@@ -7,10 +7,12 @@ public class 文件复制 {
         try {
             BufferedInputStream input = new BufferedInputStream(new FileInputStream("D:/students.txt"));
             BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream("D:/student.txt"));
-            int a = -1;
-            while ((a = input.read()) != -1) {
-                output.write(a);
-
+            int a = input.available();
+            System.out.println(a);
+            byte[] copy = new byte[1024 * 8];
+            int len = -1;
+            while ((len = input.read(copy)) != -1) {
+                output.write(copy, 0, len);
             }
             output.flush();
         } catch (FileNotFoundException e) {

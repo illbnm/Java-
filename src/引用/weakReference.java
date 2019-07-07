@@ -10,10 +10,7 @@ public class weakReference {
         System.gc();//只是给了一个信号,具体回收时机还是由JVM决定
         System.out.println(weakReference.get());
     }
-
-
 }
-
 class people {
     String name;
 }

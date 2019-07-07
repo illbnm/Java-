@@ -488,20 +488,121 @@ class BSTree<T extends Comparable<T>> {
     /**
      * 判断tree 是不是当前 BST树的子树
      */
-    public boolean isChildTree(BSTNode<T> tree) {
-        return isChildTree(root, tree);
-
-
+    public boolean isChildTree(BSTree<T> tree) {
+        BSTNode<T> cur = this.root;
+        while (cur != null) {
+            if (cur.getData().compareTo(tree.root.getData()) > 0) {
+                cur = cur.getLeft();
+            } else if (cur.getData().compareTo(tree.root.getData()) < 0) {
+                cur = cur.getRight();
+            } else {
+                break;
+            }
+        }
+        if (cur == null) {
+            return false;
+        }
+        return isChildTree(cur, tree.root);
     }
 
-    private boolean isChildTree(BSTNode<T> root, BSTNode<T> tree) {
-        if (root == null) {
+    private boolean isChildTree(BSTNode<T> f, BSTNode<T> c) {
+        if (f == null && c == null) {
             return true;
         }
+        if (f == null) {
+            return false;
+        }
+        if (c == null) {
+            return true;
+        }
+        if (f.getData().compareTo(c.getData()) != 0) {
+            return false;
+        }
 
-        return false;
+        return isChildTree(f.getLeft(), c.getLeft())
+                && isChildTree(f.getRight(), c.getRight());
     }
 
+    /**
+     * 递归实现插入
+     */
+    public BSTNode<T> insert(BSTNode<T> root, T data) {
+        if (root == null) {
+            return new BSTNode<>(data, null, null);
+        }
+        if (root.getData().compareTo(data) > 0)// 当前节点大于传入节点的值
+        {
+            root.setLeft(insert(root.getLeft(), data));
+        } else if (root.getData().compareTo(data) < 0)// 当前节点小于传入节点的值
+        {
+            root.setRight(insert(root.getRight(), data));
+        }
+        return root;
+    }
+
+    /**
+     * 递归实现节点的删除
+     */
+    public BSTNode<T> delete(BSTNode<T> root, T data) {
+        if (root == null) {
+            return null;
+        }
+        if (root.getData().compareTo(data) > 0) {           //向左子树递归删除
+            root.setLeft((delete(root.getLeft(), data)));
+        } else if (root.getData().compareTo(data) < 0) {   // 向右子树递归删除
+            root.setRight((delete(root.getRight(), data)));
+        } else {
+
+            if (root.getLeft() != null && root.getRight() != null) {
+                BSTNode<T> pre = root.getLeft();
+                while (pre.getRight() != null) {
+                    pre = pre.getRight();
+                }
+                root.setData(pre.getData());
+                root.setLeft(delete(root.getLeft(), pre.getData()));
+
+            } else {
+                if (root.getLeft() != null) {
+                    return root.getLeft();
+                } else if (root.getRight() != null) {
+                    return root.getRight();
+                } else {
+                    return null;
+                }
+
+            }
+
+
+        }
+        return null;
+    }
+
+    /**
+     * 用前序数组和中序数组重建二叉树
+     * @param pre
+     * @param i
+     * @param j
+     * @param in
+     * @param m
+     * @param n
+     * @return
+     */
+    public BSTNode<T> rebuild(T[] pre, int i, int j, T[] in, int m, int n) {
+        if (i > j || m > n) {
+            return null;
+        }
+        BSTNode<T> node = new BSTNode<>(pre[i], null, null);
+        this.root = node;
+        for (int temp = m; temp <= n; i++) {
+            if (pre[i].compareTo(in[temp]) == 0) {
+                node.setLeft(rebuild(pre, i + 1, i + (temp - m), in, m, temp - 1));
+                node.setRight(rebuild(pre, i + (temp - m) + 1, j, in, temp + 1, n));
+                break;
+            }
+
+        }
+        return node;
+    }
 
 }
 
@@ -520,7 +621,7 @@ public class BST {
         bst.preOrder();
 
         System.out.println(bst.Coun_API());
-
-
     }
+
+
 }
