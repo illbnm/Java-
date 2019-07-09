@@ -27,7 +27,7 @@ public class myBSTNode<T extends Comparable<T>> {
     /**
      * BST非递归插入
      * 1. 首先通过不断比较,找到cur == null 情况下的cur的父节点(parent)
-     * 2.
+     * 2. 再经过和其父亲节点的data比较然后再将其插入到孩子域中
      *
      * @param data
      */
@@ -261,13 +261,13 @@ public class myBSTNode<T extends Comparable<T>> {
         if (root == null) {
             return;
         }
-        if (root.getData().compareTo(begin) > 0) { // 此处的
+        if (root.getData().compareTo(begin) > 0) { //当前节点的值大于begin时,在节点的左边进行寻找
             findAreaDatas(root.getLeft(), begin, end);
         }
         if (root.getData().compareTo(begin) >= 0 && root.getData().compareTo(end) <= 0) {
             System.out.print(root.getData() + " ");
         }
-        if (root.getData().compareTo(end) < 0) {
+        if (root.getData().compareTo(end) < 0) {//当前节点的值小于end时,在当前节点的右边进行寻找
             findAreaDatas(root.getRight(), begin, end);
         }
 
@@ -275,20 +275,89 @@ public class myBSTNode<T extends Comparable<T>> {
 
     /**
      * 判断一个二叉树是否为BST树,是BST树返回true 不是返回false
+     * 1. 由于搜索二叉树的性质 中序遍历 为递增数列
+     * 2 .因而可通过判断其中序遍历前一个data的值是否小于当前data的值
      *
      * @param
      */
+    BSTNode<T> pre = null; // 保存遍历前一个节点的值
+
     public boolean isBSTree() {
-        T value = null;
-        return isBSTree(this.root, value);
+
+        return isBSTree(this.root);
     }
 
-    private boolean isBSTree(BSTNode<T> root, T value) {
+    private boolean isBSTree(BSTNode<T> root) {
         if (root == null) {
+            return true;
+        }
+        if (!isBSTree(root.getLeft())) {   // 判断左子树返回false的情况
             return false;
         }
+        if (pre != null && root.getData().compareTo(pre.getData()) < 0) {
+            return false;
+        }
+        return isBSTree(root.getLeft());
+    }
+
+    /**
+     * 求data1和data2的最近公共祖先节点 ,并返回它的值
+     * 1. 由于其最近公共祖先节点一定介于 data1 与 data 2 之间
+     * 2. 可以不断对当前节点的data与之比较,从而降低规模
+     */
+    public T getLCA(T data1, T data2) {
+        if (root == null) {
+            return null;
+        }
+        if (!non_quary(data1) || !non_quary(data2)) {
+            return null;
+        }
+        return getLCA(root, data1, data2);
+
+    }
+
+    private T getLCA(BSTNode<T> root, T data1, T data2) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.getData().compareTo(data1) > 0 && root.getData().compareTo(data2) > 0) {
+            return getLCA(root.getLeft(), data1, data2);
+        } else if (root.getData().compareTo(data1) < 0 && root.getData().compareTo(data2) < 0) {
+            return getLCA(root.getRight(), data1, data2);
+        } else {
+            return root.getData();
+        }
+
+    }
+
+    /**
+     * 返回中序的倒数第k个节点
+     * 1. 有两种解决方法 1.将k转换为正数的第length - k 个数字
+     *
+     * @param k
+     */
+    public T getInOrdergetKvalue(int k) {
 
 
+        return getInOrdergetKvalue(root, k);
+    }
+
+
+    private int i = 1;  // 定义的全局变量,用于计数
+
+    private T getInOrdergetKvalue(BSTNode<T> root, int k) {
+        if (root == null) {
+            return null;
+        }
+        T value = getInOrdergetKvalue(root.getRight(), k);
+        if (value == null) {
+            return null;
+        }
+        if (i++ == k) {
+            return root.getData();
+        }
+        return getInOrdergetKvalue(root.getRight(), k);
 
     }
 
