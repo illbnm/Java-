@@ -333,16 +333,16 @@ public class myBSTNode<T extends Comparable<T>> {
 
     /**
      * 返回中序的倒数第k个节点
-     * 1. 有两种解决方法 1.将k转换为正数的第length - k 个数字
+     * 1. 有两种解决方法 1.将k转换为正数的第length - k 个数字 2
+     * 2. 选择先中序遍历  (先右子树再左子树)
+     * 3 .这样遍历的结果就是递减的
      *
      * @param k
      */
+
     public T getInOrdergetKvalue(int k) {
-
-
         return getInOrdergetKvalue(root, k);
     }
-
 
     private int i = 1;  // 定义的全局变量,用于计数
 
@@ -350,15 +350,147 @@ public class myBSTNode<T extends Comparable<T>> {
         if (root == null) {
             return null;
         }
-        T value = getInOrdergetKvalue(root.getRight(), k);
+        T value = getInOrdergetKvalue(root.getRight(), k);  //先右子树
         if (value == null) {
             return null;
         }
         if (i++ == k) {
             return root.getData();
         }
-        return getInOrdergetKvalue(root.getRight(), k);
+        return getInOrdergetKvalue(root.getRight(), k); // 再左子树
 
+    }
+
+    /**
+     * 判断当前 tree是不是BST 的一棵子树
+     * 1 首先找到tree的root节点在BST中的位置
+     * 2 .然后对tree中每个节点进行判断
+     *
+     * @param
+     */
+    public boolean isChildTree(BSTNode<T> tree) {
+        BSTNode<T> cur = this.root;
+
+        while (cur != null) {  //找到tree中root在BST中的位置
+            if (root.getData().compareTo(tree.getData()) > 0) {
+                cur = cur.getLeft();
+            } else if (root.getData().compareTo(tree.getData()) < 0) {
+                cur = cur.getRight();
+            } else {
+                break;
+            }
+        }
+
+        if (cur == null) {
+            return false; //此处返回的原因是 : 在BST 树中没有找到tree的root节点
+        }
+        return isChildTree(cur, tree);
+
+    }
+
+    private boolean isChildTree(BSTNode<T> B, BSTNode<T> R) {
+        if (B == null && R == null) {
+            return true;       // 判断到两者同时为null时,返回true
+        }
+        if (B == null) {
+            return false;
+        }
+        if (R == null) {
+            return true;
+        }
+
+        if (B.getData().compareTo(R.getData()) != 0) {
+            return false;
+        }
+
+        return isChildTree(B.getLeft(), R.getLeft()) && isChildTree(B.getRight(), R.getRight()); //继续判断R的左右子树
+    }
+
+    /**
+     * 获取BST的层数
+     */
+    public int level() {
+        return level(root);
+    }
+
+    private int level(BSTNode<T> root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int left = level(root.getLeft());
+            int right = level(root.getRight());
+            return left > right ? left + 1 : right + 1;
+        }
+    }
+
+    /**
+     * 递归实现BST树的层序遍历
+     * 1. for循环表示循环每一层
+     * 2. i-1 表示进入要打印的那一层
+     *
+     * @param
+     */
+    public void levelOrder() {
+        int l = level();
+        for (int i = 0; i < l; i++) {
+            levelOrder(root, i);
+        }
+        System.out.println();
+    }
+
+    private void levelOrder(BSTNode<T> root, int i) {
+        if (root == null) {
+            return;
+        }
+        if (i == 0) {
+            System.out.print(root.getData() + "   ");
+        }
+        levelOrder(root.getLeft(), i - 1);
+        levelOrder(root.getRight(), i - 1);
+    }
+
+    /**
+     * 计算BST树节点的个数
+     */
+    public int number() {
+        return number(this.root);
+    }
+
+    private int number(BSTNode<T> root) {
+        if (root == null) {
+            return 0;
+        } else {
+            return number(root.getLeft()) + number(root.getRight()) + 1;
+        }
+    }
+
+    /**
+     * 根据BST的中序和前序重建二叉树
+     * 1 . 先拿前序序列的第一个作为根节点
+     * 2.   拿它的值在中序里面寻找找到index
+     * 3.   根据index缩小规模
+     */
+    public void rebuild(T[] pre, T[] in) {
+        this.root = rebuild(pre, 0, pre.length - 1, in, 0, in.length - 1);
+    }
+
+    private BSTNode<T> rebuild(T[] pre, int i, int j, T[] in, int m, int n) {
+        if (i > j || m > n) {
+            return null;
+        }
+        BSTNode<T> node = new BSTNode<>(pre[i], null, null);
+        for (int k = m; m < k; ++k) {
+            if (in[k].compareTo(pre[i]) == 0) { // 在中序序列中找到pre[i] 的k == index ,用来缩小规模
+                {
+                    node.setLeft(rebuild(pre, i + 1, j + (k - m), in, m, k - 1));  //此时i+1是将前序下一个节点作为下一个左孩子  ,
+                    // j+(k-m)是缩小规模,左子树的构建必然在中序的前一半之中
+                    // n =  k-1 缩小for循环的查找规模
+                    node.setRight(rebuild(pre, i + (k - m) + 1, j, in, k + 1, n)); // 此时i = i+(k-m)+1  在将前序的一半往后的节点作为下一个右孩子
+                    // m = k+1 表示缩小规模
+                }
+            }
+        }
+        return node;
     }
 
 
@@ -368,7 +500,7 @@ public class myBSTNode<T extends Comparable<T>> {
         for (int va : ar) {
             BST.insert(va);
         }
-        BST.inOrder();
+        //BST.inOrder();
         System.out.println();
         //System.out.println();
         //BST.remove(39);
@@ -376,8 +508,10 @@ public class myBSTNode<T extends Comparable<T>> {
         //boolean re = BST.quary(66);
         // BST.mirror();
         // BST.inOrder();
-        BST.findAreaDatas(20, 99);
+        //BST.findAreaDatas(20, 99);
+        BST.levelOrder();
         System.out.println();
+        System.out.println(BST.number());
     }
 
 }
