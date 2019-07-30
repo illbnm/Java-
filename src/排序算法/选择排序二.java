@@ -1,34 +1,40 @@
 package src.排序算法;
 
+import java.util.Arrays;
+
 public class 选择排序二 {
-    public static void seleteSort(int[] arr){
-        int left= 0,right = arr.length-1;
-        while (left < right){
-            int minIndex = left,maxIndex = right;
-            for(int i=left;i<=right;i++){
-                if(arr[minIndex] > arr[i]){
+    public static <T extends Comparable<T>> void selectSort(T[] arr) {
+        int left = 0;
+        int right = arr.length - 1;
+        while (left < right) {
+            int minIndex = left;
+            int maxIndex = right;
+            for (int i = left; i <= right; i++) {
+                if (arr[minIndex].compareTo(arr[i]) > 0) {
                     minIndex = i;
                 }
-                if(arr[maxIndex] < arr[i]){
+                if (arr[maxIndex].compareTo(arr[i]) < 0) {
                     maxIndex = i;
                 }
             }
-            swap(arr,left,minIndex);
-            if(left != maxIndex) {
-                swap(arr, right, maxIndex);
+            if (left != minIndex) {
+                swap(arr, left, minIndex);
+                left++;
             }
-            left++;
+            swap(arr, right, maxIndex);
             right--;
         }
     }
-    private  static void swap(int[] arr, int m, int low) {
-        int temp = arr[m];
-        arr[m] = arr[low];
-        arr[low] = temp;
-        System.out.println("交换");
+
+    private static <T> void swap(T[] arr, int x, int y) {
+        T temp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = temp;
     }
 
     public static void main(String[] args) {
-
+        Integer arr[] = {0, 3, 1, 6, 0, 8, 9};
+        selectSort(arr);
+        System.out.println(Arrays.toString(arr));
     }
 }
