@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 public class raceDemo {
     public static void main(String[] args) {
 
-
         CyclicBarrier barrier = new CyclicBarrier(8);
         Thread[] plays = new Thread[8];
         for (int i = 0; i < 8; i++) {
